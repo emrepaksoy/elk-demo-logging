@@ -19,8 +19,7 @@ namespace DemoLogging.Log
             {
                 var newIndexName =  indexName + System.DateTime.Now.Ticks;
                 var indexSettings = new IndexSettings();
-                indexSettings.NumberOfReplicas = 1;
-                indexSettings.NumberOfShards = 3;
+               
 
 
                 var response = _client.Indices.Create(newIndexName, index =>
@@ -36,9 +35,6 @@ namespace DemoLogging.Log
             int a = 0;
         }
 
-        public IReadOnlyCollection<ErrorLogModel> SearchErrorLog()
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

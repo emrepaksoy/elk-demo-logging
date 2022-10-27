@@ -7,7 +7,6 @@ namespace DemoLogging.Extensions
     public class RequestResponseExtension
     {
         readonly RequestDelegate _next;
-        //readonly ILogger<RequestResponseExtension> _logger;
         readonly IElasticSearchService<RequestLogModel> _elasticSearchService;
         readonly IConfiguration _configuration;
         public RequestResponseExtension(RequestDelegate next, IConfiguration configuration, IElasticSearchService<RequestLogModel> elasticSearchService)
@@ -20,8 +19,7 @@ namespace DemoLogging.Extensions
 
         public async Task Invoke(HttpContext httpContext)
         {
-            //request
-            //_logger.LogInformation($"Query Keys: {httpContext.Request.QueryString}");
+    
 
             var originalBodyStream = httpContext.Response.Body;
 
@@ -38,6 +36,9 @@ namespace DemoLogging.Extensions
             httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
             String reader = await new StreamReader(httpContext.Response.Body, Encoding.UTF8).ReadToEndAsync();
             httpContext.Response.Body.Seek(0, SeekOrigin.Begin);
+
+
+            
 
             await httpContext.Response.Body.CopyToAsync(originalBodyStream);
         }
